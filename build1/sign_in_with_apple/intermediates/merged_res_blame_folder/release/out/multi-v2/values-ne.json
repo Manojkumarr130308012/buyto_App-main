@@ -1,0 +1,68 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\3. Neophran Technoloy\\Buyto Project\\buyto_App\\build\\sign_in_with_apple\\intermediates\\merged_res\\release\\values-ne\\values-ne.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\PRANEESH\\.gradle\\caches\\transforms-3\\515a7cf5b9de063b62bd01102423337e\\transformed\\core-1.6.0\\res\\values-ne\\values-ne.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "502",
+                        "endColumns": "100",
+                        "endOffsets": "598"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\PRANEESH\\.gradle\\caches\\transforms-3\\7f3007b0af6000171b80d1152baa9fa0\\transformed\\browser-1.2.0\\res\\values-ne\\values-ne.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,162,274,388",
+                        "endColumns": "106,111,113,113",
+                        "endOffsets": "157,269,383,497"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\3. Neophran Technoloy\\Buyto Project\\buyto_App\\build\\sign_in_with_apple\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-ne\\values-ne.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\PRANEESH\\.gradle\\caches\\transforms-3\\515a7cf5b9de063b62bd01102423337e\\transformed\\core-1.6.0\\res\\values-ne\\values-ne.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "55",
+                        "endColumns": "100",
+                        "endOffsets": "151"
+                    },
+                    "to": {
+                        "startLines": "6",
+                        "startColumns": "4",
+                        "startOffsets": "502",
+                        "endColumns": "100",
+                        "endOffsets": "598"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\PRANEESH\\.gradle\\caches\\transforms-3\\7f3007b0af6000171b80d1152baa9fa0\\transformed\\browser-1.2.0\\res\\values-ne\\values-ne.xml",
+                    "from": {
+                        "startLines": "2,3,4,5",
+                        "startColumns": "4,4,4,4",
+                        "startOffsets": "55,162,274,388",
+                        "endColumns": "106,111,113,113",
+                        "endOffsets": "157,269,383,497"
+                    }
+                }
+            ]
+        }
+    ]
+}

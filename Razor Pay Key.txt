@@ -1,0 +1,4 @@
+razorpay:{
+		key_id: 'rzp_test_44R71VMYTGvBoG',
+		key_secret: 'w66RJKP4rNdSKAT2YwH9C6eo',
+	}

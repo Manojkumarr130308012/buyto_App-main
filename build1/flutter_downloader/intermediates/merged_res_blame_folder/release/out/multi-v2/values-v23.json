@@ -1,0 +1,34 @@
+{
+    "logs": [
+        {
+            "outputFile": "D:\\3. Neophran Technoloy\\Buyto Project\\buyto_App\\build\\flutter_downloader\\intermediates\\merged_res\\release\\values-v23\\values-v23.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\PRANEESH\\.gradle\\caches\\transforms-3\\b3214c26b4abd471b537c5ed7c80aa1b\\transformed\\work-runtime-2.7.1\\res\\values-v23\\values-v23.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,121",
+                        "endColumns": "65,62",
+                        "endOffsets": "116,179"
+                    }
+                }
+            ]
+        },
+        {
+            "outputFile": "D:\\3. Neophran Technoloy\\Buyto Project\\buyto_App\\build\\flutter_downloader\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-v23\\values-v23.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\PRANEESH\\.gradle\\caches\\transforms-3\\b3214c26b4abd471b537c5ed7c80aa1b\\transformed\\work-runtime-2.7.1\\res\\values-v23\\values-v23.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,121",
+                        "endColumns": "65,62",
+                        "endOffsets": "116,179"
+                    }
+                }
+            ]
+        }
+    ]
+}
