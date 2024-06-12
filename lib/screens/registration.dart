@@ -222,332 +222,349 @@ class _RegistrationState extends State<Registration> {
     final _screen_width = MediaQuery.of(context).size.width;
     return Scaffold(
         backgroundColor: MyTheme.white,
-        body: Stack(children: [
-          Container(
-            child: Image.asset(
-              "assets/splash_screen_logo.png",
-              width: _screen_width,
-              height: _screen_height / 4,
-            ),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-                width: _screen_width - 0,
-                height: _screen_height / 1.35,
-                decoration: BoxDecoration(
-                  color: MyTheme.light_grey,
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(40),
-                      topRight: Radius.circular(40)),
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                child: Image.asset(
+                  "assets/splash_screen_logo.png",
+                  width: _screen_width,
+                  height: _screen_height / 4,
                 ),
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 4.0, left: 20.0, top: 30),
-                        child: Text(
-                          // AppLocalizations.of(context)!.name_ucf,
-                          "Shop Name",
-                          style: TextStyle(
-                              color: MyTheme.accent_color,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 8.0, left: 20.0, top: 10.0, right: 30),
-                        child: Container(
-                          height: 45,
-                          width: _screen_width,
-                          child: TextField(
-                            controller: _nameController,
-                            autofocus: false,
-                            decoration: InputDecorations.buildInputDecoration_1(
-                                hint_text: "Enter the Shop Name"),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 4.0, left: 20.0, top: 10),
-                        child: Text(
-                          // AppLocalizations.of(context)!.name_ucf,
-                          "Owner Name",
-                          style: TextStyle(
-                              color: MyTheme.accent_color,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 8.0, left: 20.0, top: 10.0, right: 30),
-                        child: Container(
-                          height: 45,
-                          width: _screen_width,
-                          child: TextField(
-                            controller: _ownerController,
-                            autofocus: false,
-                            decoration: InputDecorations.buildInputDecoration_1(
-                                hint_text: "Enter the Owner Name"),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            bottom: 4.0, left: 20.0, top: 10.0),
-                        child: Text(
-                          "Mobile Number",
-                          style: TextStyle(
-                              color: MyTheme.accent_color,
-                              fontWeight: FontWeight.w600),
-                        ),
-                      ),
-                      if (_register_by == "email")
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Container(
-                                height: 36,
-                                child: TextField(
-                                  controller: _emailController,
-                                  autofocus: false,
-                                  decoration:
-                                      InputDecorations.buildInputDecoration_1(
-                                          hint_text: "johndoe@example.com"),
-                                ),
-                              ),
-                              otp_addon_installed.$
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        setState(() {
-                                          _register_by = "phone";
-                                        });
-                                      },
-                                      child: Text(
-                                        AppLocalizations.of(context)!
-                                            .or_register_with_a_phone,
-                                        style: TextStyle(
-                                            color: MyTheme.accent_color,
-                                            fontStyle: FontStyle.italic,
-                                            decoration:
-                                                TextDecoration.underline),
-                                      ),
-                                    )
-                                  : Container()
-                            ],
-                          ),
-                        )
-                      else
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              bottom: 8.0, top: 10.0, left: 20.0, right: 30),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Container(
-                                height: 85,
-                                width: _screen_width,
-                                child: TextField(
-                                  controller: _phoneNumberController,
-                                  autofocus: false,
-                                  maxLength: 10,
-                                  keyboardType: TextInputType.number,
-                                  decoration:
-                                      InputDecorations.buildInputDecoration_1(
-                                    hint_text: "Enter the Mobile Number",
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 10.0, left: 20.0, right: 30),
-                        child: Container(
-                          height: 45,
-                          width: _screen_width - 50,
-                          child: Btn.minWidthFixHeight(
-                            minWidth: MediaQuery.of(context).size.width,
-                            height: 50,
-                            color: MyTheme.amber,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(6.0))),
+              ),
+              Align(
+                alignment: Alignment.bottomCenter,
+                child: Container(
+                    width: _screen_width - 0,
+                    height: _screen_height / 1.35,
+                    decoration: BoxDecoration(
+                      color: MyTheme.light_grey,
+                      borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(40),
+                          topRight: Radius.circular(40)),
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 4.0, left: 20.0, top: 30),
                             child: Text(
-                              "Add to Shop Photo",
+                              // AppLocalizations.of(context)!.name_ucf,
+                              "Shop Name",
                               style: TextStyle(
                                   color: MyTheme.accent_color,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w600,
-                                  fontFamily: 'NotoSans'),
-                            ),
-                            onPressed: () {
-                              chooseAndUploadImage(context);
-                            },
-                          ),
-                        ),
-                      ),
-                      if (google_recaptcha.$)
-                        Container(
-                          height: _isCaptchaShowing ? 350 : 50,
-                          width: 300,
-                          child: Captcha(
-                            (keyValue) {
-                              googleRecaptchaKey = keyValue;
-                              setState(() {});
-                            },
-                            handleCaptcha: (data) {
-                              if (_isCaptchaShowing.toString() != data) {
-                                _isCaptchaShowing = data;
-                                setState(() {});
-                              }
-                            },
-                            isIOS: Platform.isIOS,
-                          ),
-                        ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20.0, left: 20.0),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 15,
-                              width: 15,
-                              child: Checkbox(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(6)),
-                                  value: _isAgree,
-                                  onChanged: (newValue) {
-                                    _isAgree = newValue;
-                                    setState(() {});
-                                  }),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8.0),
-                              child: Container(
-                                width: DeviceInfo(context).width! - 130,
-                                child: RichText(
-                                    maxLines: 2,
-                                    text: TextSpan(
-                                        style: TextStyle(
-                                            color: MyTheme.font_grey,
-                                            fontSize: 12),
-                                        children: [
-                                          TextSpan(
-                                            text: "I agree to the",
-                                          ),
-                                          TextSpan(
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            CommonWebviewScreen(
-                                                              page_name:
-                                                                  "Terms Conditions",
-                                                              url:
-                                                                  "${AppConfig.RAW_BASE_URL}/mobile-page/terms",
-                                                            )));
-                                              },
-                                            style: TextStyle(
-                                                color: MyTheme.accent_color),
-                                            text: " Terms Conditions",
-                                          ),
-                                          TextSpan(
-                                            text: " &",
-                                          ),
-                                          TextSpan(
-                                            recognizer: TapGestureRecognizer()
-                                              ..onTap = () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            CommonWebviewScreen(
-                                                              page_name:
-                                                                  "Privacy Policy",
-                                                              url:
-                                                                  "${AppConfig.RAW_BASE_URL}/mobile-page/privacy-policy",
-                                                            )));
-                                              },
-                                            text: " Privacy Policy",
-                                            style: TextStyle(
-                                                color: MyTheme.accent_color),
-                                          )
-                                        ])),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                            top: 30.0, left: 20, right: 30),
-                        child: Container(
-                          height: 45,
-                          child: Btn.minWidthFixHeight(
-                            minWidth: MediaQuery.of(context).size.width,
-                            height: 50,
-                            color: MyTheme.accent_color,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(6.0))),
-                            child: Text(
-                              AppLocalizations.of(context)!.sign_up_ucf,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
                                   fontWeight: FontWeight.w600),
                             ),
-                            onPressed: _isAgree!
-                                ? () {
-                                    onPressSignUp();
-                                  }
-                                : null,
                           ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 20.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Center(
-                                child: Text(
-                              AppLocalizations.of(context)!
-                                  .already_have_an_account,
-                              style: TextStyle(
-                                  color: MyTheme.font_grey, fontSize: 12),
-                            )),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                              child: Text(
-                                AppLocalizations.of(context)!.log_in,
-                                style: TextStyle(
-                                    color: MyTheme.accent_color,
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w600),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 8.0, left: 20.0, top: 10.0, right: 30),
+                            child: Container(
+                              height: 45,
+                              width: _screen_width,
+                              child: TextField(
+                                controller: _nameController,
+                                autofocus: false,
+                                decoration:
+                                    InputDecorations.buildInputDecoration_1(
+                                        hint_text: "Enter the Shop Name"),
                               ),
-                              onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return Login();
-                                }));
-                              },
                             ),
-                          ],
-                        ),
-                      ),
-                    ])),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 4.0, left: 20.0, top: 10),
+                            child: Text(
+                              // AppLocalizations.of(context)!.name_ucf,
+                              "Owner Name",
+                              style: TextStyle(
+                                  color: MyTheme.accent_color,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 8.0, left: 20.0, top: 10.0, right: 30),
+                            child: Container(
+                              height: 45,
+                              width: _screen_width,
+                              child: TextField(
+                                controller: _ownerController,
+                                autofocus: false,
+                                decoration:
+                                    InputDecorations.buildInputDecoration_1(
+                                        hint_text: "Enter the Owner Name"),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                bottom: 4.0, left: 20.0, top: 10.0),
+                            child: Text(
+                              "Mobile Number",
+                              style: TextStyle(
+                                  color: MyTheme.accent_color,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                          ),
+                          if (_register_by == "email")
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    height: 36,
+                                    child: TextField(
+                                      controller: _emailController,
+                                      autofocus: false,
+                                      decoration: InputDecorations
+                                          .buildInputDecoration_1(
+                                              hint_text: "johndoe@example.com"),
+                                    ),
+                                  ),
+                                  otp_addon_installed.$
+                                      ? GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              _register_by = "phone";
+                                            });
+                                          },
+                                          child: Text(
+                                            AppLocalizations.of(context)!
+                                                .or_register_with_a_phone,
+                                            style: TextStyle(
+                                                color: MyTheme.accent_color,
+                                                fontStyle: FontStyle.italic,
+                                                decoration:
+                                                    TextDecoration.underline),
+                                          ),
+                                        )
+                                      : Container()
+                                ],
+                              ),
+                            )
+                          else
+                            Padding(
+                              padding: const EdgeInsets.only(
+                                  bottom: 8.0,
+                                  top: 10.0,
+                                  left: 20.0,
+                                  right: 30),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Container(
+                                    height: 85,
+                                    width: _screen_width,
+                                    child: TextField(
+                                      controller: _phoneNumberController,
+                                      autofocus: false,
+                                      maxLength: 10,
+                                      keyboardType: TextInputType.number,
+                                      decoration: InputDecorations
+                                          .buildInputDecoration_1(
+                                        hint_text: "Enter the Mobile Number",
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 10.0, left: 20.0, right: 30),
+                            child: Container(
+                              height: 45,
+                              width: _screen_width - 50,
+                              child: Btn.minWidthFixHeight(
+                                minWidth: MediaQuery.of(context).size.width,
+                                height: 50,
+                                color: MyTheme.amber,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(6.0))),
+                                child: Text(
+                                  "Add to Shop Photo",
+                                  style: TextStyle(
+                                      color: MyTheme.accent_color,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600,
+                                      fontFamily: 'NotoSans'),
+                                ),
+                                onPressed: () {
+                                  chooseAndUploadImage(context);
+                                },
+                              ),
+                            ),
+                          ),
+                          if (google_recaptcha.$)
+                            Container(
+                              height: _isCaptchaShowing ? 350 : 50,
+                              width: 300,
+                              child: Captcha(
+                                (keyValue) {
+                                  googleRecaptchaKey = keyValue;
+                                  setState(() {});
+                                },
+                                handleCaptcha: (data) {
+                                  if (_isCaptchaShowing.toString() != data) {
+                                    _isCaptchaShowing = data;
+                                    setState(() {});
+                                  }
+                                },
+                                isIOS: Platform.isIOS,
+                              ),
+                            ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(top: 20.0, left: 20.0),
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  height: 15,
+                                  width: 15,
+                                  child: Checkbox(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(6)),
+                                      value: _isAgree,
+                                      onChanged: (newValue) {
+                                        _isAgree = newValue;
+                                        setState(() {});
+                                      }),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8.0),
+                                  child: Container(
+                                    width: DeviceInfo(context).width! - 130,
+                                    child: RichText(
+                                        maxLines: 2,
+                                        text: TextSpan(
+                                            style: TextStyle(
+                                                color: MyTheme.font_grey,
+                                                fontSize: 12),
+                                            children: [
+                                              TextSpan(
+                                                text: "I agree to the",
+                                              ),
+                                              TextSpan(
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        CommonWebviewScreen(
+                                                                          page_name:
+                                                                              "Terms Conditions",
+                                                                          url:
+                                                                              "${AppConfig.RAW_BASE_URL}/mobile-page/terms",
+                                                                        )));
+                                                      },
+                                                style: TextStyle(
+                                                    color:
+                                                        MyTheme.accent_color),
+                                                text: " Terms Conditions",
+                                              ),
+                                              TextSpan(
+                                                text: " &",
+                                              ),
+                                              TextSpan(
+                                                recognizer:
+                                                    TapGestureRecognizer()
+                                                      ..onTap = () {
+                                                        Navigator.push(
+                                                            context,
+                                                            MaterialPageRoute(
+                                                                builder:
+                                                                    (context) =>
+                                                                        CommonWebviewScreen(
+                                                                          page_name:
+                                                                              "Privacy Policy",
+                                                                          url:
+                                                                              "${AppConfig.RAW_BASE_URL}/mobile-page/privacy-policy",
+                                                                        )));
+                                                      },
+                                                text: " Privacy Policy",
+                                                style: TextStyle(
+                                                    color:
+                                                        MyTheme.accent_color),
+                                              )
+                                            ])),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 30.0, left: 20, right: 30),
+                            child: Container(
+                              height: 45,
+                              child: Btn.minWidthFixHeight(
+                                minWidth: MediaQuery.of(context).size.width,
+                                height: 50,
+                                color: MyTheme.accent_color,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(6.0))),
+                                child: Text(
+                                  AppLocalizations.of(context)!.sign_up_ucf,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                                onPressed: _isAgree!
+                                    ? () {
+                                        onPressSignUp();
+                                      }
+                                    : null,
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Center(
+                                    child: Text(
+                                  AppLocalizations.of(context)!
+                                      .already_have_an_account,
+                                  style: TextStyle(
+                                      color: MyTheme.font_grey, fontSize: 12),
+                                )),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                InkWell(
+                                  child: Text(
+                                    AppLocalizations.of(context)!.log_in,
+                                    style: TextStyle(
+                                        color: MyTheme.accent_color,
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600),
+                                  ),
+                                  onTap: () {
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: (context) {
+                                      return Login();
+                                    }));
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                        ])),
+              )
+            ],
           ),
-        ]));
+        ));
   }
 }

@@ -1011,7 +1011,7 @@ class _ProductDetailsState extends State<ProductDetails>
                             SizedBox(width: 15),
                             InkWell(
                               onTap: () {
-                                // onWishTap();
+                                onWishTap();
                               },
                               child: Container(
                                 decoration: BoxDecorations

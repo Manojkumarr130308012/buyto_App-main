@@ -676,7 +676,7 @@ class _EditProductState extends State<EditProduct> {
                                           ),
                                           SizedBox(height: 5),
                                           Container(
-                                            height: 220,
+                                            height: 120,
                                             child: ListView.builder(
                                                 itemCount: response.data.length,
                                                 itemBuilder: (context, index) {

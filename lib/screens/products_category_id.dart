@@ -1698,6 +1698,7 @@ class _ProductCategoryByIdState extends State<ProductCategoryById> {
               // onWishTap();
             },
             child: Container(
+              decoration: BoxDecorations.buildCircularButtonDecoration_1(),
               width: 36,
               height: 36,
               child: Center(
@@ -1705,7 +1706,7 @@ class _ProductCategoryByIdState extends State<ProductCategoryById> {
                   Icons.favorite,
                   color: _isInWishList
                       ? Color.fromRGBO(230, 46, 4, 1)
-                      : MyTheme.white,
+                      : MyTheme.accent_color,
                   size: 24,
                 ),
               ),
@@ -1721,6 +1722,7 @@ class _ProductCategoryByIdState extends State<ProductCategoryById> {
               });
             },
             child: Container(
+              decoration: BoxDecorations.buildCircularButtonDecoration_1(),
               width: 36,
               height: 36,
               padding: EdgeInsets.all(8),
@@ -1731,7 +1733,7 @@ class _ProductCategoryByIdState extends State<ProductCategoryById> {
                 stackFit: StackFit.loose,
                 child: Image.asset(
                   "assets/cart.png",
-                  color: MyTheme.white,
+                  color: MyTheme.accent_color,
                   height: 24,
                 ),
                 badgeContent: Consumer<CartCounter>(

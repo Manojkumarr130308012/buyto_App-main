@@ -1975,12 +1975,29 @@ class _CartState extends State<Cart> {
                       ),
                       backgroundColor: MyTheme.accent_color),
                   onPressed: () async {
+                    bool order = true;
+                    for (int i = 0; i < _shopList.length; i++) {
+                      print(_shopList[i].new_sub_total);
+                      print(_shopList[i].cartItems[0].minimumOrderValue);
+                      if (_shopList[i].new_sub_total <
+                          _shopList[i].cartItems[0].minimumOrderValue) {
+                        ToastComponent.showDialog(
+                            'Please Select the more Products in the${_shopList[i].name}',
+                            gravity: Toast.center,
+                            duration: Toast.lengthLong);
+                        order = false;
+                        i = _shopList.length + 1;
+                      }
+                    }
+
                     if (_cartTotalString == "0.00") {
                       ToastComponent.showDialog('Please select any one seller',
                           gravity: Toast.center, duration: Toast.lengthLong);
                       return;
                     } else {
-                      onPressProceedToShipping();
+                      if (order) {
+                        onPressProceedToShipping();
+                      }
                     }
                   },
                   child: Row(

@@ -72,7 +72,7 @@ android {
 
      signingConfigs {
          release {
-             storeFile file('/Users/hs/Downloads/buyto_App-main/android/key.jks')
+             storeFile file('/Users/hs/Desktop/path/newkey.jks')
              storePassword '123456'
              keyAlias 'newkey'
              keyPassword '123456'

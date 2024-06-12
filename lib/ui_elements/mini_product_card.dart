@@ -9,6 +9,7 @@ import 'package:toast/toast.dart';
 import '../custom/toast_component.dart';
 import '../helpers/shared_value_helper.dart';
 import '../repositories/wishlist_repository.dart';
+import '../screens/wishlist.dart';
 
 class MiniProductCard extends StatefulWidget {
   int? id;

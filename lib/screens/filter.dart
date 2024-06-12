@@ -11,6 +11,7 @@ import 'package:active_ecommerce_flutter/repositories/product_repository.dart';
 import 'package:active_ecommerce_flutter/repositories/search_repository.dart';
 import 'package:active_ecommerce_flutter/repositories/shop_repository.dart';
 import 'package:active_ecommerce_flutter/screens/seller_details.dart';
+import 'package:active_ecommerce_flutter/screens/wishlist.dart';
 import 'package:active_ecommerce_flutter/ui_elements/brand_square_card.dart';
 import 'package:active_ecommerce_flutter/ui_elements/product_card.dart';
 import 'package:active_ecommerce_flutter/ui_elements/shop_square_card.dart';
@@ -19,13 +20,18 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:one_context/one_context.dart';
+import 'package:provider/provider.dart';
 import 'package:toast/toast.dart';
+import '../custom/box_decorations.dart';
+import '../presenter/cart_counter.dart';
 import '../repositories/color_category_repository.dart';
 import '../repositories/gender_category_repository.dart';
 import '../repositories/seller_category_repository.dart';
 import '../repositories/size_category_repository.dart';
 import '../repositories/sole_category_repository.dart';
 import '../repositories/sub_category_repository.dart';
+import 'cart.dart';
+import 'package:badges/badges.dart' as badges;
 
 class WhichFilter {
   String option_key;
@@ -438,7 +444,11 @@ class _FilterState extends State<Filter> {
       items.add(
         DropdownMenuItem(
           value: which_filter_item,
-          child: Text(which_filter_item.name),
+          child: Text(which_filter_item.name,
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 13,
+              )),
         ),
       );
     }
@@ -539,295 +549,300 @@ class _FilterState extends State<Filter> {
         ));
   }
 
-  Row buildBottomAppBar(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+  Column buildBottomAppBar(BuildContext context) {
+    return Column(
       children: [
-        Padding(
-            padding: EdgeInsets.all(1.0),
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.symmetric(
-                      vertical: BorderSide(color: MyTheme.grey_153, width: 1),
-                      horizontal:
-                          BorderSide(color: MyTheme.grey_153, width: 1))),
-              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              height: 36,
-              width: MediaQuery.of(context).size.width * .30,
-              child: new DropdownButton<WhichFilter>(
-                icon: Padding(
-                  padding: app_language_rtl.$!
-                      ? const EdgeInsets.only(right: 9.0)
-                      : const EdgeInsets.only(left: 18.0),
-                  child: Icon(Icons.expand_more, color: Colors.black54),
-                ),
-                hint: Text(
-                  AppLocalizations.of(context)!.products_ucf,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 13,
-                  ),
-                ),
-                style: TextStyle(color: Colors.black, fontSize: 13),
-                iconSize: 13,
-                underline: SizedBox(),
-                value: _selectedFilter,
-                items: _dropdownWhichFilterItems,
-                onChanged: (WhichFilter? selectedFilter) {
-                  setState(() {
-                    _selectedFilter = selectedFilter;
-                  });
-
-                  _onWhichFilterChange();
-                },
-              ),
-            )),
-        Padding(
-            padding: EdgeInsets.all(1.0),
-            child: GestureDetector(
-              onTap: () {
-                _selectedFilter!.option_key == "product"
-                    ? _scaffoldKey.currentState!.openEndDrawer()
-                    : ToastComponent.showDialog(
-                        AppLocalizations.of(context)!
-                            .you_can_use_sorting_while_searching_for_products,
-                        gravity: Toast.center,
-                        duration: Toast.lengthLong);
-                ;
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.symmetric(
-                        vertical: BorderSide(color: MyTheme.grey_153, width: 1),
-                        horizontal:
-                            BorderSide(color: MyTheme.grey_153, width: 1))),
-                height: 36,
-                width: MediaQuery.of(context).size.width * .30,
-                child: Center(
-                    child: Container(
-                  width: 50,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.filter_alt_outlined,
-                        size: 13,
+        SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Padding(
+                padding: EdgeInsets.all(2.0),
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                  child: Container(
+                    color: MyTheme.accent_color,
+                    padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                    height: 36,
+                    width: MediaQuery.of(context).size.width * .30,
+                    child: new DropdownButton<WhichFilter>(
+                      icon: Padding(
+                        padding: app_language_rtl.$!
+                            ? const EdgeInsets.only(right: 9.0)
+                            : const EdgeInsets.only(left: 18.0),
+                        child: Icon(Icons.expand_more, color: Colors.white),
                       ),
-                      SizedBox(width: 2),
-                      Text(
-                        AppLocalizations.of(context)!.filter_ucf,
+                      hint: Text(
+                        AppLocalizations.of(context)!.products_ucf,
                         style: TextStyle(
-                          color: Colors.black,
+                          color: Colors.white,
                           fontSize: 13,
                         ),
                       ),
-                    ],
+                      style: TextStyle(color: Colors.white, fontSize: 13),
+                      iconSize: 13,
+                      underline: SizedBox(),
+                      value: _selectedFilter,
+                      items: _dropdownWhichFilterItems,
+                      onChanged: (WhichFilter? selectedFilter) {
+                        setState(() {
+                          _selectedFilter = selectedFilter;
+                        });
+
+                        _onWhichFilterChange();
+                      },
+                    ),
                   ),
                 )),
-              ),
-            )),
-        Padding(
-            padding: EdgeInsets.all(2.0),
-            child: GestureDetector(
-              onTap: () {
-                _selectedFilter!.option_key == "product"
-                    ? showDialog(
-                        context: context,
-                        builder: (_) => Directionality(
-                              textDirection: app_language_rtl.$!
-                                  ? TextDirection.rtl
-                                  : TextDirection.ltr,
-                              child: AlertDialog(
-                                contentPadding: EdgeInsets.only(
-                                    top: 16.0,
-                                    left: 2.0,
-                                    right: 2.0,
-                                    bottom: 2.0),
-                                content: StatefulBuilder(builder:
-                                    (BuildContext context,
-                                        StateSetter setState) {
-                                  return Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                          padding: const EdgeInsets.symmetric(
-                                              horizontal: 24.0),
-                                          child: Text(
-                                            AppLocalizations.of(context)!
-                                                .sort_products_by_ucf,
-                                          )),
-                                      RadioListTile(
-                                        dense: true,
-                                        value: "",
-                                        groupValue: _selectedSort,
-                                        activeColor: MyTheme.font_grey,
-                                        controlAffinity:
-                                            ListTileControlAffinity.leading,
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .default_ucf),
-                                        onChanged: (dynamic value) {
-                                          setState(() {
-                                            _selectedSort = value;
-                                          });
-                                          _onSortChange();
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        dense: true,
-                                        value: "price_high_to_low",
-                                        groupValue: _selectedSort,
-                                        activeColor: MyTheme.font_grey,
-                                        controlAffinity:
-                                            ListTileControlAffinity.leading,
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .price_high_to_low),
-                                        onChanged: (dynamic value) {
-                                          setState(() {
-                                            _selectedSort = value;
-                                          });
-                                          _onSortChange();
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        dense: true,
-                                        value: "price_low_to_high",
-                                        groupValue: _selectedSort,
-                                        activeColor: MyTheme.font_grey,
-                                        controlAffinity:
-                                            ListTileControlAffinity.leading,
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .price_low_to_high),
-                                        onChanged: (dynamic value) {
-                                          setState(() {
-                                            _selectedSort = value;
-                                          });
-                                          _onSortChange();
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        dense: true,
-                                        value: "new_arrival",
-                                        groupValue: _selectedSort,
-                                        activeColor: MyTheme.font_grey,
-                                        controlAffinity:
-                                            ListTileControlAffinity.leading,
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .new_arrival_ucf),
-                                        onChanged: (dynamic value) {
-                                          setState(() {
-                                            _selectedSort = value;
-                                          });
-                                          _onSortChange();
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        dense: true,
-                                        value: "popularity",
-                                        groupValue: _selectedSort,
-                                        activeColor: MyTheme.font_grey,
-                                        controlAffinity:
-                                            ListTileControlAffinity.leading,
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .popularity_ucf),
-                                        onChanged: (dynamic value) {
-                                          setState(() {
-                                            _selectedSort = value;
-                                          });
-                                          _onSortChange();
-                                          Navigator.pop(context);
-                                        },
-                                      ),
-                                      RadioListTile(
-                                        dense: true,
-                                        value: "top_rated",
-                                        groupValue: _selectedSort,
-                                        activeColor: MyTheme.font_grey,
-                                        controlAffinity:
-                                            ListTileControlAffinity.leading,
-                                        title: Text(
-                                            AppLocalizations.of(context)!
-                                                .top_rated_ucf),
-                                        onChanged: (dynamic value) {
-                                          setState(() {
-                                            _selectedSort = value;
-                                          });
-                                          _onSortChange();
-                                          Navigator.pop(context);
+            Padding(
+                padding: EdgeInsets.all(2.0),
+                child: GestureDetector(
+                  onTap: () {
+                    _selectedFilter!.option_key == "product"
+                        ? _scaffoldKey.currentState!.openEndDrawer()
+                        : ToastComponent.showDialog(
+                            AppLocalizations.of(context)!
+                                .you_can_use_sorting_while_searching_for_products,
+                            gravity: Toast.center,
+                            duration: Toast.lengthLong);
+                    ;
+                  },
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
+                    child: Container(
+                      color: MyTheme.accent_color,
+                      height: 36,
+                      width: MediaQuery.of(context).size.width * .30,
+                      child: Center(
+                          child: Container(
+                        width: 50,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.filter_alt_outlined,
+                              size: 13,
+                              color: MyTheme.white,
+                            ),
+                            SizedBox(width: 2),
+                            Text(
+                              AppLocalizations.of(context)!.filter_ucf,
+                              style: TextStyle(
+                                color: MyTheme.white,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )),
+                    ),
+                  ),
+                )),
+            Padding(
+                padding: EdgeInsets.all(2.0),
+                child: GestureDetector(
+                  onTap: () {
+                    _selectedFilter!.option_key == "product"
+                        ? showDialog(
+                            context: context,
+                            builder: (_) => Directionality(
+                                  textDirection: app_language_rtl.$!
+                                      ? TextDirection.rtl
+                                      : TextDirection.ltr,
+                                  child: AlertDialog(
+                                    contentPadding: EdgeInsets.only(
+                                        top: 16.0,
+                                        left: 2.0,
+                                        right: 2.0,
+                                        bottom: 2.0),
+                                    content: StatefulBuilder(builder:
+                                        (BuildContext context,
+                                            StateSetter setState) {
+                                      return Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 24.0),
+                                              child: Text(
+                                                AppLocalizations.of(context)!
+                                                    .sort_products_by_ucf,
+                                              )),
+                                          RadioListTile(
+                                            dense: true,
+                                            value: "",
+                                            groupValue: _selectedSort,
+                                            activeColor: MyTheme.font_grey,
+                                            controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .default_ucf),
+                                            onChanged: (dynamic value) {
+                                              setState(() {
+                                                _selectedSort = value;
+                                              });
+                                              _onSortChange();
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                          RadioListTile(
+                                            dense: true,
+                                            value: "price_high_to_low",
+                                            groupValue: _selectedSort,
+                                            activeColor: MyTheme.font_grey,
+                                            controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .price_high_to_low),
+                                            onChanged: (dynamic value) {
+                                              setState(() {
+                                                _selectedSort = value;
+                                              });
+                                              _onSortChange();
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                          RadioListTile(
+                                            dense: true,
+                                            value: "price_low_to_high",
+                                            groupValue: _selectedSort,
+                                            activeColor: MyTheme.font_grey,
+                                            controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .price_low_to_high),
+                                            onChanged: (dynamic value) {
+                                              setState(() {
+                                                _selectedSort = value;
+                                              });
+                                              _onSortChange();
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                          RadioListTile(
+                                            dense: true,
+                                            value: "new_arrival",
+                                            groupValue: _selectedSort,
+                                            activeColor: MyTheme.font_grey,
+                                            controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .new_arrival_ucf),
+                                            onChanged: (dynamic value) {
+                                              setState(() {
+                                                _selectedSort = value;
+                                              });
+                                              _onSortChange();
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                          RadioListTile(
+                                            dense: true,
+                                            value: "popularity",
+                                            groupValue: _selectedSort,
+                                            activeColor: MyTheme.font_grey,
+                                            controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .popularity_ucf),
+                                            onChanged: (dynamic value) {
+                                              setState(() {
+                                                _selectedSort = value;
+                                              });
+                                              _onSortChange();
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                          RadioListTile(
+                                            dense: true,
+                                            value: "top_rated",
+                                            groupValue: _selectedSort,
+                                            activeColor: MyTheme.font_grey,
+                                            controlAffinity:
+                                                ListTileControlAffinity.leading,
+                                            title: Text(
+                                                AppLocalizations.of(context)!
+                                                    .top_rated_ucf),
+                                            onChanged: (dynamic value) {
+                                              setState(() {
+                                                _selectedSort = value;
+                                              });
+                                              _onSortChange();
+                                              Navigator.pop(context);
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    }),
+                                    actions: [
+                                      Btn.basic(
+                                        child: Text(
+                                          AppLocalizations.of(context)!
+                                              .close_all_capital,
+                                          style: TextStyle(
+                                              color: MyTheme.medium_grey),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .pop();
                                         },
                                       ),
                                     ],
-                                  );
-                                }),
-                                actions: [
-                                  Btn.basic(
-                                    child: Text(
-                                      AppLocalizations.of(context)!
-                                          .close_all_capital,
-                                      style:
-                                          TextStyle(color: MyTheme.medium_grey),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context, rootNavigator: true)
-                                          .pop();
-                                    },
                                   ),
-                                ],
-                              ),
-                            ))
-                    : ToastComponent.showDialog(
-                        AppLocalizations.of(context)!
-                            .you_can_use_filters_while_searching_for_products,
-                        gravity: Toast.center,
-                        duration: Toast.lengthLong);
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.symmetric(
-                        vertical: BorderSide(color: MyTheme.grey_153, width: 1),
-                        horizontal:
-                            BorderSide(color: MyTheme.grey_153, width: 1))),
-                height: 36,
-                width: MediaQuery.of(context).size.width * .30,
-                child: Center(
+                                ))
+                        : ToastComponent.showDialog(
+                            AppLocalizations.of(context)!
+                                .you_can_use_filters_while_searching_for_products,
+                            gravity: Toast.center,
+                            duration: Toast.lengthLong);
+                  },
+                  child: ClipRRect(
+                    borderRadius: const BorderRadius.all(Radius.circular(16.0)),
                     child: Container(
-                  width: 50,
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.swap_vert,
-                        size: 13,
-                      ),
-                      SizedBox(width: 2),
-                      Text(
-                        AppLocalizations.of(context)!.sort_ucf,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 13,
+                      color: MyTheme.accent_color,
+                      height: 36,
+                      width: MediaQuery.of(context).size.width * .30,
+                      child: Center(
+                          child: Container(
+                        width: 50,
+                        child: Row(
+                          children: [
+                            Icon(
+                              Icons.swap_vert,
+                              size: 13,
+                              color: MyTheme.white,
+                            ),
+                            SizedBox(width: 2),
+                            Text(
+                              AppLocalizations.of(context)!.sort_ucf,
+                              style: TextStyle(
+                                color: MyTheme.white,
+                                fontSize: 13,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
+                      )),
+                    ),
                   ),
-                )),
-              ),
-            ))
+                ))
+          ],
+        ),
+        SizedBox(height: 10),
       ],
     );
   }
 
   Row buildTopAppbar(BuildContext context) {
+    bool _isInWishList = false;
     return Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -837,7 +852,7 @@ class _FilterState extends State<Filter> {
             onPressed: () => Navigator.of(context).pop(),
           ),
           Container(
-            width: MediaQuery.of(context).size.width * .73,
+            width: MediaQuery.of(context).size.width * .40,
             child: Container(
               child: Padding(
                   padding: MediaQuery.of(context).viewPadding.top >
@@ -940,7 +955,71 @@ class _FilterState extends State<Filter> {
                 setState(() {});
                 _onSearchSubmit();
               }),
+          SizedBox(width: 15),
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Wishlist();
+              }));
+              // onWishTap();
+            },
+            child: Container(
+              decoration: BoxDecorations.buildCircularButtonDecoration_1(),
+              width: 36,
+              height: 36,
+              child: Center(
+                child: Icon(
+                  Icons.favorite,
+                  color: _isInWishList
+                      ? Color.fromRGBO(230, 46, 4, 1)
+                      : MyTheme.accent_color,
+                  size: 24,
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: 15),
+          InkWell(
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Cart(has_bottomnav: false);
+              })).then((value) {
+                onPopped(value);
+              });
+            },
+            child: Container(
+              decoration: BoxDecorations.buildCircularButtonDecoration_1(),
+              width: 36,
+              height: 36,
+              padding: EdgeInsets.all(8),
+              child: badges.Badge(
+                badgeAnimation: badges.BadgeAnimation.slide(
+                  toAnimate: true,
+                ),
+                stackFit: StackFit.loose,
+                child: Image.asset(
+                  "assets/cart.png",
+                  color: MyTheme.accent_color,
+                  height: 24,
+                ),
+                badgeContent: Consumer<CartCounter>(
+                  builder: (context, cart, child) {
+                    return Text(
+                      "${cart.cartCounter}",
+                      style: TextStyle(fontSize: 12, color: Colors.white),
+                    );
+                  },
+                ),
+              ),
+            ),
+          ),
+          SizedBox(width: 15)
         ]);
+  }
+
+  onPopped(value) async {
+    reset();
+    fetchProductData();
   }
 
   buildFilterDrawer() {

@@ -210,6 +210,7 @@ class _BrandProductsState extends State<BrandProducts> {
                 brand_name: _productList[index].new_brand_name,
                 category_name: _productList[index].new_category_name,
                 gender: _productList[index].gender,
+                color_code: _productList[index].color_code,
               );
             },
           ),

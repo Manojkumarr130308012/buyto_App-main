@@ -10,6 +10,7 @@ import '../custom/toast_component.dart';
 import '../helpers/shared_value_helper.dart';
 import '../repositories/wishlist_repository.dart';
 import '../screens/auction_products_details.dart';
+import '../screens/wishlist.dart';
 
 class ProductCard extends StatefulWidget {
   var identifier;

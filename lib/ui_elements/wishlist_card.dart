@@ -54,8 +54,9 @@ class WishlistCard extends StatefulWidget {
 }
 
 class _WishlistCardState extends State<WishlistCard> {
-  bool _isInWishList = false;
+  bool _isInWishList = true;
   int _inWishList = 0;
+  List<dynamic> _wishlistItems = [];
 
   removeFromWishList() async {
     var wishListCheckResponse =
@@ -64,7 +65,15 @@ class _WishlistCardState extends State<WishlistCard> {
     setState(() {});
   }
 
-  onWishTap() {
+  addToWishList() async {
+    var wishListCheckResponse =
+        await WishListRepository().add(product_id: widget.id);
+    _isInWishList = wishListCheckResponse.is_in_wishlist;
+    _inWishList = wishListCheckResponse.product_id;
+    setState(() {});
+  }
+
+  onWishTap() async {
     if (is_logged_in.$ == false) {
       ToastComponent.showDialog(
           AppLocalizations.of(context)!.you_need_to_log_in,
@@ -72,22 +81,19 @@ class _WishlistCardState extends State<WishlistCard> {
           duration: Toast.lengthLong);
       return;
     }
-    addToWishList() async {
-      var wishListCheckResponse =
-          await WishListRepository().add(product_id: widget.id);
-      _isInWishList = wishListCheckResponse.is_in_wishlist;
-      _inWishList = wishListCheckResponse.product_id;
-      setState(() {});
-    }
 
-    if (_isInWishList!) {
-      _isInWishList = false;
-      setState(() {});
+    // var wishListCheckResponse =
+    //     await WishListRepository().add(product_id: widget.id);
+    // _isInWishList = wishListCheckResponse.is_in_wishlist;
+    print("_isInWishList ${_isInWishList}");
+    if (_isInWishList) {
+      // _isInWishList = false;
       removeFromWishList();
-    } else {
-      _isInWishList = true;
       setState(() {});
+    } else {
+      // _isInWishList = true;
       addToWishList();
+      setState(() {});
     }
   }
 
@@ -310,7 +316,7 @@ class _WishlistCardState extends State<WishlistCard> {
                   child: Center(
                     child: Icon(
                       Icons.favorite,
-                      color: _isInWishList
+                      color: !_isInWishList
                           ? MyTheme.dark_font_grey
                           : Color.fromRGBO(230, 46, 4, 1),
                       size: 16,

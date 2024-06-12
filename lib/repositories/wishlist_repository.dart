@@ -80,6 +80,8 @@ class WishListRepository {
         },
         middleware: BannedUser());
 
+    print("url ${url}");
+    print("response ${response}");
     return wishListChekResponseFromJson(response.body);
   }
 

@@ -146,10 +146,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                   topRight: Radius.circular(30.0),
                                   topLeft: Radius.circular(30.0),
                                 )),
-                                height: MediaQuery.sizeOf(context).height / 2.5,
+                                height: MediaQuery.sizeOf(context).height / 2,
                                 child: Column(
                                   children: [
-                                    SizedBox(height: 15),
+                                    SizedBox(height: 20),
                                     Row(
                                       children: [
                                         Image.asset(
@@ -275,7 +275,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
                                       ],
                                     ),
                                     Container(
-                                      margin: const EdgeInsets.only(top: 20.0),
+                                      margin: const EdgeInsets.only(top: 30.0),
                                       child: Column(
                                         children: [
                                           Text(
@@ -1458,7 +1458,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin {
     } else if (homeData.featuredProductList.length > 0) {
       return SingleChildScrollView(
         child: SizedBox(
-          height: MediaQuery.sizeOf(context).height / 2.6,
+          height: MediaQuery.sizeOf(context).height / 2.2,
           child: NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification scrollInfo) {
               if (scrollInfo.metrics.pixels ==

@@ -10,6 +10,7 @@ import 'package:active_ecommerce_flutter/repositories/product_repository.dart';
 import 'package:active_ecommerce_flutter/repositories/shop_repository.dart';
 import 'package:active_ecommerce_flutter/screens/cart.dart';
 import 'package:active_ecommerce_flutter/screens/seller_details.dart';
+import 'package:active_ecommerce_flutter/screens/wishlist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -89,9 +90,13 @@ class _PriceCategoryState extends State<PriceCategory> {
           SizedBox(width: 15),
           InkWell(
             onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Wishlist();
+              }));
               // onWishTap();
             },
             child: Container(
+              decoration: BoxDecorations.buildCircularButtonDecoration_1(),
               width: 36,
               height: 36,
               child: Center(
@@ -99,7 +104,7 @@ class _PriceCategoryState extends State<PriceCategory> {
                   Icons.favorite,
                   color: _isInWishList
                       ? Color.fromRGBO(230, 46, 4, 1)
-                      : MyTheme.white,
+                      : MyTheme.accent_color,
                   size: 24,
                 ),
               ),
@@ -115,6 +120,7 @@ class _PriceCategoryState extends State<PriceCategory> {
               });
             },
             child: Container(
+              decoration: BoxDecorations.buildCircularButtonDecoration_1(),
               width: 36,
               height: 36,
               padding: EdgeInsets.all(8),
@@ -125,7 +131,7 @@ class _PriceCategoryState extends State<PriceCategory> {
                 stackFit: StackFit.loose,
                 child: Image.asset(
                   "assets/cart.png",
-                  color: MyTheme.white,
+                  color: MyTheme.accent_color,
                   height: 24,
                 ),
                 badgeContent: Consumer<CartCounter>(

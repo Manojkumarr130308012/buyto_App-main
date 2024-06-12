@@ -7,6 +7,7 @@ import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:active_ecommerce_flutter/repositories/category_repository.dart';
 import 'package:active_ecommerce_flutter/repositories/product_repository.dart';
 import 'package:active_ecommerce_flutter/screens/seller_details.dart';
+import 'package:active_ecommerce_flutter/screens/wishlist.dart';
 import 'package:active_ecommerce_flutter/ui_elements/product_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -346,6 +347,9 @@ class _CategoryProductsState extends State<CategoryProducts> {
   fetchData() async {
     var productResponse = await ProductRepository().getCategoryProducts(
         id: widget.category_id, page: _page, name: _searchKey);
+    if (_page == 1) {
+      _productList.clear();
+    }
     _productList.addAll(productResponse.products!);
     _isInitial = false;
     _totalData = productResponse.meta!.total;
@@ -1690,9 +1694,13 @@ class _CategoryProductsState extends State<CategoryProducts> {
           SizedBox(width: 15),
           InkWell(
             onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) {
+                return Wishlist();
+              }));
               // onWishTap();
             },
             child: Container(
+              decoration: BoxDecorations.buildCircularButtonDecoration_1(),
               width: 36,
               height: 36,
               child: Center(
@@ -1700,7 +1708,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                   Icons.favorite,
                   color: _isInWishList
                       ? Color.fromRGBO(230, 46, 4, 1)
-                      : MyTheme.white,
+                      : MyTheme.accent_color,
                   size: 24,
                 ),
               ),
@@ -1716,6 +1724,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
               });
             },
             child: Container(
+              decoration: BoxDecorations.buildCircularButtonDecoration_1(),
               width: 36,
               height: 36,
               padding: EdgeInsets.all(8),
@@ -1726,7 +1735,7 @@ class _CategoryProductsState extends State<CategoryProducts> {
                 stackFit: StackFit.loose,
                 child: Image.asset(
                   "assets/cart.png",
-                  color: MyTheme.white,
+                  color: MyTheme.accent_color,
                   height: 24,
                 ),
                 badgeContent: Consumer<CartCounter>(

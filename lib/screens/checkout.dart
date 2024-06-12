@@ -1820,6 +1820,17 @@ class _CheckoutState extends State<Checkout> {
       _selected_payment_method = _paymentTypeList[0].payment_type;
       _selected_payment_method_key = _paymentTypeList[0].payment_type_key;
     }
+
+    if (_selected_payment_method_key == "razorpay") {
+      var couponRes =
+          await CouponRepository().getCouponResponseList(page: _page);
+      _couponsList.addAll(couponRes.data!);
+      for (int i = 0; i < _couponsList.length; i++) {
+        if (_couponsList[i].code == "ONLINE") {
+          onCouponApply(_couponsList[i].code);
+        }
+      }
+    } else {}
     _isInitial = false;
     setState(() {});
   }
@@ -2278,13 +2289,36 @@ class _CheckoutState extends State<Checkout> {
     );
   }
 
-  onPaymentMethodItemTap(index) {
+  onPaymentMethodItemTap(index) async {
     if (_selected_payment_method_key !=
         _paymentTypeList[index].payment_type_key) {
+      if (_paymentTypeList[index].payment_type == "razorpay") {
+        var couponRes =
+            await CouponRepository().getCouponResponseList(page: _page);
+        _couponsList.addAll(couponRes.data!);
+
+        for (int i = 0; i < _couponsList.length; i++) {
+          for (int i = 0; i < _couponsList.length; i++) {
+            if (_couponsList[i].code == "ONLINE") {
+              onCouponApply(_couponsList[i].code);
+            }
+          }
+        }
+
+        print("object ${_couponsList}");
+      } else {
+        onCouponRemove();
+      }
+
       setState(() {
         _selected_payment_method_index = index;
         _selected_payment_method = _paymentTypeList[index].payment_type;
         _selected_payment_method_key = _paymentTypeList[index].payment_type_key;
+
+        print(
+            "_selected_payment_method_index ${_selected_payment_method_index}");
+        print("_selected_payment_method ${_selected_payment_method}");
+        print("_selected_payment_method_key ${_selected_payment_method_key}");
       });
     }
 

@@ -4,10 +4,12 @@ import 'package:active_ecommerce_flutter/helpers/shimmer_helper.dart';
 import 'package:active_ecommerce_flutter/my_theme.dart';
 import 'package:active_ecommerce_flutter/repositories/shop_repository.dart';
 import 'package:active_ecommerce_flutter/screens/cart.dart';
+import 'package:active_ecommerce_flutter/screens/wishlist.dart';
 import 'package:active_ecommerce_flutter/ui_elements/shop_square_card.dart';
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
+import '../custom/box_decorations.dart';
 import '../data_model/shop_response.dart';
 import '../presenter/cart_counter.dart';
 
@@ -85,9 +87,12 @@ class _TopSellersState extends State<TopSellers> {
         SizedBox(width: 15),
         InkWell(
           onTap: () {
-            // onWishTap();
+            Navigator.push(context, MaterialPageRoute(builder: (context) {
+              return Wishlist();
+            }));
           },
           child: Container(
+            decoration: BoxDecorations.buildCircularButtonDecoration_1(),
             width: 36,
             height: 36,
             child: Center(
@@ -95,7 +100,7 @@ class _TopSellersState extends State<TopSellers> {
                 Icons.favorite,
                 color: _isInWishList
                     ? Color.fromRGBO(230, 46, 4, 1)
-                    : MyTheme.white,
+                    : MyTheme.accent_color,
                 size: 24,
               ),
             ),
@@ -111,6 +116,7 @@ class _TopSellersState extends State<TopSellers> {
             });
           },
           child: Container(
+            decoration: BoxDecorations.buildCircularButtonDecoration_1(),
             width: 36,
             height: 36,
             padding: EdgeInsets.all(8),
@@ -121,7 +127,7 @@ class _TopSellersState extends State<TopSellers> {
               stackFit: StackFit.loose,
               child: Image.asset(
                 "assets/cart.png",
-                color: MyTheme.white,
+                color: MyTheme.accent_color,
                 height: 24,
               ),
               badgeContent: Consumer<CartCounter>(
